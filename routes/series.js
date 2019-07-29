@@ -3,7 +3,7 @@ const router = express.Router();
 const knex = require("../knex");
 
 /* GET ALL SERIES */
-router.get("/", async (req, res, next) => {
+router.get("/all", async (req, res, next) => {
   try {
     const data = await knex("series").orderBy("title").select("*");
     await res.send(data);

@@ -3,7 +3,7 @@ const router = express.Router();
 const knex = require("../knex");
 
 /* GET ALL MOVIES */
-router.get("/", async (req, res, next) => {
+router.get("/all", async (req, res, next) => {
   try {
     const data = await knex("movies").orderBy("title").select("*");
     await res.send(data);
