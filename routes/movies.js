@@ -40,7 +40,8 @@ router.post("/", async (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
   try {
     await knex("movies").select("*").where("id", req.params.id).update({
-      title: req.body.title
+      title: req.body.title,
+      updated_at: knex.fn.now(),
     });
     res.send({message: {
       value: "Successfully updated a movie"

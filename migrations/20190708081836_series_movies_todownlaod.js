@@ -1,4 +1,4 @@
-exports.up = (knex) => {
+exports.up = async (knex) => {
   return knex.schema.createTable("series", (table) => {
       table.increments("id").primary()
       table.string("title")
@@ -13,6 +13,6 @@ exports.up = (knex) => {
     })
 };
 
-exports.down = (knex) => {
-  return knex.schema.dropTable("series").dropTable("movies")
+exports.down = async (knex) => {
+  // return knex.schema.dropTable("series").dropTable("movies")
 };

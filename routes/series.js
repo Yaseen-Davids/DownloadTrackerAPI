@@ -45,6 +45,7 @@ router.put("/:id", async (req, res, next) => {
       title: req.body.title,
       season: req.body.season,
       episode: req.body.episode,
+      updated_at: knex.fn.now(),
     });
     res.send({message: {
       value: "Successfully update series"
