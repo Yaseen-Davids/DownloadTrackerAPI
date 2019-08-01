@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const knex = require("../knex");
+const { CreateMovie, DeleteMovie, GetMovieById, GetMovies, UpdateMovie } = require("../repositories/movies");
 
 /* GET ALL MOVIES */
 router.get("/all", async (req, res, next) => {
   try {
-    const data = await knex("movies").orderBy("title").select("*");
+    const data = await GetMovies();
     await res.send(data);
   } catch (e) {
     return next(e);
@@ -15,7 +15,7 @@ router.get("/all", async (req, res, next) => {
 /* GET MOVIE BY ID */
 router.get("/:id", async (req, res, next) => {
   try {
-    const data = await knex("movies").select("*").where("id", req.params.id)
+    const data = await GetMovieById(req.params.id);
     await res.send(data);
   } catch (e) {
     return next(e);
@@ -25,9 +25,7 @@ router.get("/:id", async (req, res, next) => {
 /* POST NEW MOVIE */
 router.post("/", async (req, res, next) => {
   try {
-    await knex("movies").select("*").insert({
-      title: req.body.title,
-    });
+    await CreateMovie();
     res.send({message: {
       value: "Successfully added a new movie"
     }});
@@ -39,10 +37,7 @@ router.post("/", async (req, res, next) => {
 /* UPDATE MOVIE BY ID */
 router.put("/:id", async (req, res, next) => {
   try {
-    await knex("movies").select("*").where("id", req.params.id).update({
-      title: req.body.title,
-      updated_at: knex.fn.now(),
-    });
+    await UpdateMovie(req.params.id, req.body);
     res.send({message: {
       value: "Successfully updated a movie"
     }});
@@ -54,7 +49,7 @@ router.put("/:id", async (req, res, next) => {
 /* DELETE MOVIE BY ID */
 router.delete("/:id", async (req, res, next) => {
   try {
-    await knex("movies").select("*").where("id", req.params.id).del();
+    await DeleteMovie(req.params.id);
     res.send({message: {
       value: "Successfully deleted a movie"
     }});
