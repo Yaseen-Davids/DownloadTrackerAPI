@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const knex = require("../knex");
-import { GetSeries, GetSeriesById, CreateSeries, DeleteSeries } from "../repositories/series";
+const { GetSeries, GetSeriesById, CreateSeries, DeleteSeries, UpdateSeries } = require("../repositories/series");
+// const { GetSeriesById} = require("../repositories/series");
+// const CreateSeries = require("../repositories/series");
+// const DeleteSeries = require("../repositories/series");
+// const UpdateSeries = require("../repositories/series");
 
 /* GET ALL SERIES */
 router.get("/all", async (req, res, next) => {
