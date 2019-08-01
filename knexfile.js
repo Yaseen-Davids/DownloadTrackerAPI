@@ -1,10 +1,10 @@
 // UPDATE THIS WITH .env
 const
-  host = "ec2-54-227-251-33.compute-1.amazonaws.com",
-  username = 'zqutsdsciacgqq',
-  password = '62ce983bdd7b2166f0992cdbd567479d7d237b7f4c36229f6a6f6e900c95ec33',
+  host = process.env.host,
+  username = process.env.username,
+  password = process.env.password,
   port = '5432',
-  db = 'd8dp6utdkv6cl9';
+  db = process.env.db;
 
 module.exports = {
   development: {
