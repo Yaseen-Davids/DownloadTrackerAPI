@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const knex = require("../knex");
+import { GetSeries, GetSeriesById, CreateSeries, DeleteSeries } from "../repositories/series";
 
 /* GET ALL SERIES */
 router.get("/all", async (req, res, next) => {
   try {
-    const data = await knex("series").orderBy("title").select("*");
+    const data = await GetSeries();
     await res.send(data);
   } catch (e) {
     return next(e);
@@ -15,7 +16,7 @@ router.get("/all", async (req, res, next) => {
 /* GET SERIES BY ID */
 router.get("/:id", async (req, res, next) => {
   try {
-    const data = await knex("series").select("*").where("id", req.params.id)
+    const data = await GetSeriesById(req.params.id);
     await res.send(data);
   } catch (e) {
     return next(e);
@@ -25,11 +26,7 @@ router.get("/:id", async (req, res, next) => {
 /* POST NEW SERIES */
 router.post("/", async (req, res, next) => {
   try {
-    await knex("series").select("*").insert({
-      title: req.body.title,
-      season: req.body.season,
-      episode: req.body.episode,
-    });
+    await CreateSeries(req.body);
     res.send({message: {
       value: "Successfully added a new series"
     }});
@@ -41,14 +38,9 @@ router.post("/", async (req, res, next) => {
 /* UPDATE SERIES BY ID */
 router.put("/:id", async (req, res, next) => {
   try {
-    await knex("series").select("*").where("id", req.params.id).update({
-      title: req.body.title,
-      season: req.body.season,
-      episode: req.body.episode,
-      updated_at: knex.fn.now(),
-    });
+    await UpdateSeries(req.params.id, req.body);
     res.send({message: {
-      value: "Successfully update series"
+      value: "Successfully updated series"
     }});
   } catch (e) {
     return next(e);
@@ -58,7 +50,7 @@ router.put("/:id", async (req, res, next) => {
 /* DELETE SERIES BY ID */
 router.delete("/:id", async (req, res, next) => {
   try {
-    await knex("series").select("*").where("id", req.params.id).del();
+    await DeleteSeries(req.params.id);
     res.send({message: {
       value: "Successfully deleted a series"
     }});
