@@ -25,7 +25,7 @@ router.get("/:id", async (req, res, next) => {
 /* POST NEW MOVIE */
 router.post("/", async (req, res, next) => {
   try {
-    await CreateMovie();
+    await CreateMovie(req.body);
     res.send({message: {
       value: "Successfully added a new movie"
     }});
