@@ -8,8 +8,8 @@ router.get("/", function (req, res, next) {
   });
 });
 
-router.get("/wake-up", async (req, res, next) => {
-  await res.send("I am wake!");
+router.get("/wakeup", async (req, res, next) => {
+  await res.send({ message: "I am awake!" });
 })
 
 module.exports = router;
