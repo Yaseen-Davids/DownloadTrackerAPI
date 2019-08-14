@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const indexRouter = require("./routes/index");
 const seriesRouter = require("./routes/series");
 const moviesRouter = require("./routes/movies");
+const torrentRouter = require("./routes/torrents");
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(bodyParser.json());
 app.use("/", indexRouter);
 app.use("/series", seriesRouter);
 app.use("/movies", moviesRouter);
+app.use("/torrents", torrentRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
