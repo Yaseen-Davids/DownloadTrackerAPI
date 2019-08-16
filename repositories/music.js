@@ -1,31 +1,31 @@
 const knex = require("../knex");
-const TABLE = "Movies";
+const TABLE = "Music";
 
 module.exports = {
-  GetMovies: async () => {
+  GetMusic: async () => {
     return knex(TABLE).orderBy("title").select("*");
   },
 
-  GetMovieById: async (id) => {
+  GetMusicById: async (id) => {
     return knex(TABLE).select("*").where("id", id);
   },
 
-  CreateMovie: async (movie) => {
+  CreateMusic: async (music) => {
     await knex(TABLE).insert({
-      title: movie.title,
-      release_date: movie.release_date
+      title: music.title,
+      artist: music.artist,
+      release_date: music.release_date
     });
   },
   
-  UpdateMovie: async (id, movie) => {
+  UpdateMusic: async (id, music) => {
     await knex(TABLE).select("*").where("id", id).update({
-      title: movie.title,
-      release_date: movie.release_date,
+      title: music.title,
       updated_at: knex.fn.now(),
     });
   },
 
-  DeleteMovie: async (id) => {
+  DeleteMusic: async (id) => {
     await knex(TABLE).where("id", id).del();
   },
 }

@@ -1,20 +1,58 @@
 exports.up = async (knex) => {
-  return knex.schema.createTable("series", (table) => {
+  return knex.schema
+    .createTable("UsersLogin", (table) => {
       table.increments("id").primary();
-      table.string("title").notNullable().unique();
-      table.float("season").notNullable();
-      table.float("episode").notNullable();
-      table.timestamp("created_at").defaultTo(knex.fn.now())
-      table.timestamp("updated_at").defaultTo(knex.fn.now())
+      table.string("username").unique().notNullable();
+      table.string("email").unique().notNullable();
+      table.string("password").notNullable();
     })
-    .createTable("movies", (table) => {
+    .createTable("DownloadLinks", (table) => {
+      table.increments("id").primary();
+      table.string("link").notNullable();
+      table.string("title");
+    })
+    .createTable("Series", (table) => {
       table.increments("id").primary();
       table.string("title").notNullable().unique();
-      table.timestamp("created_at").defaultTo(knex.fn.now())
-      table.timestamp("updated_at").defaultTo(knex.fn.now())
+      table.integer("season").notNullable();
+      table.integer("episode").notNullable();
+      table.timestamp("release_date");
+      table.integer("linkId").references("id").inTable("DownloadLinks");
+      table.integer("userId").references("id").inTable("UsersLogin");
+      table.timestamp("created_at").defaultTo(knex.fn.now());
+      table.timestamp("updated_at").defaultTo(knex.fn.now());
+    })
+    .createTable("Movies", (table) => {
+      table.increments("id").primary();
+      table.string("title").notNullable().unique();
+      table.timestamp("release_date");
+      table.integer("linkId").references("id").inTable("DownloadLinks");
+      table.integer("userId").references("id").inTable("UsersLogin");
+      table.timestamp("created_at").defaultTo(knex.fn.now());
+      table.timestamp("updated_at").defaultTo(knex.fn.now());
+    })
+    .createTable("Games", (table) => {
+      table.increments("id").primary();
+      table.string("title").notNullable();
+      table.string("platform");
+      table.string("version");
+      table.integer("linkId").references("id").inTable("DownloadLinks");
+      table.integer("userId").references("id").inTable("UsersLogin");
+      table.timestamp("created_at").defaultTo(knex.fn.now());
+      table.timestamp("updated_at").defaultTo(knex.fn.now());
+    })
+    .createTable("Music", (table) => {
+      table.increments("id").primary();
+      table.string("title");
+      table.string("artist");
+      table.timestamp("release_date");
+      table.integer("linkId").references("id").inTable("DownloadLinks");
+      table.integer("userId").references("id").inTable("UsersLogin");
+      table.timestamp("created_at").defaultTo(knex.fn.now());
+      table.timestamp("updated_at").defaultTo(knex.fn.now());
     })
 };
 
 exports.down = async (knex) => {
-  // return knex.schema.dropTable("series").dropTable("movies")
+  // return knex.schema.dropTable("Series").dropTable("Movies").dropTable("Music").dropTable("Games").dropTable("UsersLogin").dropTable("DownloadLinks")
 };
