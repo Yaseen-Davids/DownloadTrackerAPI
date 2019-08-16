@@ -2,15 +2,15 @@ const knex = require("../knex");
 const TABLE = "Music";
 
 module.exports = {
-  GetGames: async () => {
+  GetMusic: async () => {
     return knex(TABLE).orderBy("title").select("*");
   },
 
-  GetGameById: async (id) => {
+  GetMusicById: async (id) => {
     return knex(TABLE).select("*").where("id", id);
   },
 
-  CreateGame: async (music) => {
+  CreateMusic: async (music) => {
     await knex(TABLE).insert({
       title: music.title,
       artist: music.artist,
@@ -18,14 +18,14 @@ module.exports = {
     });
   },
   
-  UpdateGame: async (id, music) => {
+  UpdateMusic: async (id, music) => {
     await knex(TABLE).select("*").where("id", id).update({
       title: music.title,
       updated_at: knex.fn.now(),
     });
   },
 
-  DeleteGame: async (id) => {
+  DeleteMusic: async (id) => {
     await knex(TABLE).where("id", id).del();
   },
 }
