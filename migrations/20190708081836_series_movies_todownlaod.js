@@ -54,5 +54,5 @@ exports.up = async (knex) => {
 };
 
 exports.down = async (knex) => {
-  // return knex.schema.dropTable("UsersLogin").dropTable("DownloadLinks").dropTable("Series").dropTable("Movies").dropTable("Music").dropTable("Games")
+  // return knex.schema.dropTable("Series").dropTable("Movies").dropTable("Music").dropTable("Games").dropTable("UsersLogin").dropTable("DownloadLinks")
 };
