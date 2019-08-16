@@ -8,6 +8,8 @@ const indexRouter = require("./routes/index");
 const seriesRouter = require("./routes/series");
 const moviesRouter = require("./routes/movies");
 const torrentRouter = require("./routes/torrents");
+const gamesRouter = require("./routes/games");
+const musicRouter = require("./routes/music");
 
 const app = express();
 
@@ -38,6 +40,8 @@ app.use("/", indexRouter);
 app.use("/series", seriesRouter);
 app.use("/movies", moviesRouter);
 app.use("/torrents", torrentRouter);
+app.use("/games", gamesRouter);
+app.use("/music", musicRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
