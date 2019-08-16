@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { GetMusic, GetMusicById, CreateMusic, DeleteMusic, UpdateMusic } = require("../repositories/music");
 
-/* GET ALL GAME */
+/* GET ALL MUSIC */
 router.get("/all", async (req, res, next) => {
   try {
     const data = await GetMusic();
@@ -12,7 +12,7 @@ router.get("/all", async (req, res, next) => {
   }
 });
 
-/* GET GAME BY ID */
+/* GET MUSIC BY ID */
 router.get("/:id", async (req, res, next) => {
   try {
     const data = await GetMusicById(req.params.id);
@@ -22,36 +22,36 @@ router.get("/:id", async (req, res, next) => {
   }
 })
 
-/* POST NEW GAME */
+/* POST NEW MUSIC */
 router.post("/", async (req, res, next) => {
   try {
     await CreateMusic(req.body);
     res.send({message: {
-      value: "Successfully added a new game"
+      value: "Successfully added a new music"
     }});
   } catch (e) {
     return next(e);
   }
 });
 
-/* UPDATE GAME BY ID */
+/* UPDATE MUSIC BY ID */
 router.put("/:id", async (req, res, next) => {
   try {
     await UpdateMusic(req.params.id, req.body);
     res.send({message: {
-      value: "Successfully updated game"
+      value: "Successfully updated music"
     }});
   } catch (e) {
     return next(e);
   }
 })
 
-/* DELETE GAME BY ID */
+/* DELETE MUSIC BY ID */
 router.delete("/:id", async (req, res, next) => {
   try {
     await DeleteMusic(req.params.id);
     res.send({message: {
-      value: "Successfully deleted a game"
+      value: "Successfully deleted a music"
     }});
   } catch (e) {
     return next(e);
