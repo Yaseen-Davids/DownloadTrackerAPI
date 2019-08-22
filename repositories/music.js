@@ -21,6 +21,7 @@ module.exports = {
   UpdateMusic: async (id, music) => {
     await knex(TABLE).select("*").where("id", id).update({
       title: music.title,
+      artist: music.artist,
       updated_at: knex.fn.now(),
     });
   },
