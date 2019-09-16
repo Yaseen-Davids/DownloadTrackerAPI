@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const torrentSearch = require("torrent-grabber");
+const { Search } = require("../torrents/limetorrents");
 
 const trackersToUse = [
   "1337x",
@@ -20,6 +21,16 @@ router.get("/search", async (req, res, next) => {
   } catch (e) {
     return next(e);
   }
-})
+});
+
+router.get("/lime/search", async (req, res, next) => {
+  try {
+    console.log("Query is running...");
+    Search();
+  }
+  catch (e){
+    return next(e);
+  }
+});
 
 module.exports = router;

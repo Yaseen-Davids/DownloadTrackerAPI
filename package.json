@@ -17,6 +17,10 @@
     "knex-migrate": "^1.7.2",
     "morgan": "^1.9.1",
     "pg": "^7.11.0",
+    "puppeteer": "^1.19.0",
     "torrent-grabber": "^1.0.2"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
   }
 }
