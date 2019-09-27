@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const torrentSearch = require("torrent-grabber");
-const { Search } = require("../torrents/limetorrents");
+const { SearchLime, SearchPirate } = require("../torrents/limetorrents");
 
 const trackersToUse = [
   "1337x",
@@ -23,10 +23,20 @@ router.get("/search", async (req, res, next) => {
   }
 });
 
-router.get("/lime/search", async (req, res, next) => {
+router.get("/limetorrents/search", async (req, res, next) => {
   try {
-    console.log("Query is running...");
-    Search();
+    const result = await SearchLime(req.query.query);
+    return res.send({ result }).end();
+  }
+  catch (e){
+    return next(e);
+  }
+});
+
+router.get("/piratebay/search", async (req, res, next) => {
+  try {
+    const result = await SearchPirate(req.query.query);
+    return res.send({ result }).end();
   }
   catch (e){
     return next(e);
