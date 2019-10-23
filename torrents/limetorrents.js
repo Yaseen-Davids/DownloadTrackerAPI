@@ -2,7 +2,12 @@ const puppeteer = require('puppeteer');
 
 module.exports = {
   SearchLime: async (query) => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+      ]
+    });
     const page = await browser.newPage();
     await page.goto(`https://www.limetorrents.info/search/all/${query}/`);
 
@@ -51,7 +56,7 @@ module.exports = {
       // }
       return td.innerHTML;
     });
-    
+
     console.log(result);
 
     await browser.close();
