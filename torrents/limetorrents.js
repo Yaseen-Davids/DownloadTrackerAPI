@@ -11,6 +11,16 @@ module.exports = {
     const page = await browser.newPage();
     await page.goto(`https://www.limetorrents.info/search/all/${query}/`);
 
+    const compare = (a, b) => {
+      if (Number(a.Seeds) > Number(b.Seeds)){
+        return -1;
+      }
+      if (Number(a.Seeds) < Number(b.Seeds)){
+        return 1;
+      }
+      return 0;
+    }
+
     const result = await page.$eval('table[class="table2"]', (td) => {
       const title = td.querySelectorAll('div[class="tt-name"]');
       const link = td.querySelectorAll('a[class="csprite_dl14"]');
@@ -34,7 +44,7 @@ module.exports = {
 
     await browser.close();
 
-    return result;
+    return result.sort(compare);
   },
   SearchPirate: async (query) => {
     const browser = await puppeteer.launch();
