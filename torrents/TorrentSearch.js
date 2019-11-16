@@ -12,10 +12,10 @@ module.exports = {
     await page.goto(`https://www.limetorrents.info/search/all/${query}/`);
 
     const compare = (a, b) => {
-      if (Number(a.Seeds) > Number(b.Seeds)){
+      if (Number(a.Seeds) > Number(b.Seeds)) {
         return -1;
       }
-      if (Number(a.Seeds) < Number(b.Seeds)){
+      if (Number(a.Seeds) < Number(b.Seeds)) {
         return 1;
       }
       return 0;
@@ -47,7 +47,12 @@ module.exports = {
     return result.sort(compare);
   },
   SearchPirate: async (query) => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+      ]
+    });
     const page = await browser.newPage();
     await page.goto(`https://thepiratebay.org/search/${query}/0/99/0`);
 

@@ -10,6 +10,7 @@ const moviesRouter = require("./routes/movies");
 const torrentRouter = require("./routes/torrents");
 const gamesRouter = require("./routes/games");
 const musicRouter = require("./routes/music");
+const searchesRouter = require("./routes/searches");
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.use("/movies", moviesRouter);
 app.use("/torrents", torrentRouter);
 app.use("/games", gamesRouter);
 app.use("/music", musicRouter);
+app.use("/searches", searchesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
